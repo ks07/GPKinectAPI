@@ -1,7 +1,8 @@
-
+#ifdef IN_UE4
 #include "GPProject.h"
+#endif
+
 #include "OCVSPacketChallenge.h"
-#include <stdexcept>
 
 OCVSPacketChallenge::OCVSPacketChallenge()
 {

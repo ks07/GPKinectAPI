@@ -1,5 +1,9 @@
 #pragma once
+
+#ifdef IN_UE4
 #include "GPProject.h"
+#endif
+
 #include "OCVSPacket.h"
 
 class OCVSPacketChallenge :
@@ -7,8 +11,6 @@ class OCVSPacketChallenge :
 {
 public:
 	OCVSPacketChallenge();
-
-	OCVSPacketChallenge(const std::vector<char> &buff);
 
 	~OCVSPacketChallenge();
 
@@ -21,4 +23,3 @@ public:
 private:
 	static const size_t PackedSize = 1;
 };
-

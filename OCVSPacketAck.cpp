@@ -1,4 +1,7 @@
+#ifdef IN_UE4
 #include "GPProject.h"
+#endif
+
 #include "OCVSPacketAck.h"
 
 const OCVSPacketAck *OCVSPacketAck::static_instance = NULL;

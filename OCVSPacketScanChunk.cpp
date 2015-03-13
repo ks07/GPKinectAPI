@@ -1,17 +1,24 @@
-//#include <cassert>
+#ifdef IN_UE4
 #include "GPProject.h"
+#endif
+
 #include "OCVSPacketScanChunk.h"
 
+#ifndef IN_UE4
+#include <cassert>
+#endif
 
-//OCVSPacketScanChunk::OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect)
-//	: index(index)
-//	, centre_x(rect.center.x)
-//	, centre_y(rect.center.y)
-//	, rotation(rect.angle)
-//	, scale_x(rect.size.width)
-//	, scale_y(rect.size.height)
-//{
-//}
+#ifndef IN_UE4
+OCVSPacketScanChunk::OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect)
+	: index(index)
+	, centre_x(rect.center.x)
+	, centre_y(rect.center.y)
+	, rotation(rect.angle)
+	, scale_x(rect.size.width)
+	, scale_y(rect.size.height)
+{
+}
+#endif
 
 // This is not the way to pass an iterator. TODO: NOPE NOPE NOPE
 OCVSPacketScanChunk::OCVSPacketScanChunk(std::vector<char> &begin, int offset)
@@ -93,4 +100,3 @@ size_t OCVSPacketScanChunk::GetPackedSize() const
 	// Fixed length of one 32 bit field, 5 32 bit floats
 	return 24;
 }
-

@@ -1,6 +1,9 @@
 #pragma once
 
+#ifdef IN_UE4
 #include "GPProject.h"
+#endif
+
 #define OCVS_PROTOCOL_VERSION (unsigned char)'m';
 
 #include <vector>

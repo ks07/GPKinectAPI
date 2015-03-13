@@ -1,18 +1,27 @@
 #pragma once
+
+#ifdef IN_UE4
 #include "GPProject.h"
-//#include <opencv2/opencv.hpp>
-#include <cstdint>
-#include <vector>
+#endif
 
 #include "OCVSPacket.h"
+
+#ifndef IN_UE4
+#include <opencv2/opencv.hpp>
+#endif
+
+#include <cstdint>
+#include <vector>
 
 class OCVSPacketScanChunk :
 	public OCVSPacket
 {
 public:
-	//OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect);
+#ifndef IN_UE4
+	OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect);
+#endif
 
-	OCVSPacketScanChunk(std::vector<char> &begin, int offset);
+    OCVSPacketScanChunk(std::vector<char> &begin, int offset);
 
 	~OCVSPacketScanChunk();
 
@@ -20,7 +29,7 @@ public:
 
 	size_t GetPackedSize() const override;
 
-	// TODO: Getters 
+    // TODO: Getters
 	float centre_x;
 	float centre_y;
 	float rotation;
