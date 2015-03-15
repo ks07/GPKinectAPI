@@ -19,7 +19,7 @@ OCVSPacketScanHeader::OCVSPacketScanHeader(uint8_t result)
 
 
 
-OCVSPacketScanHeader::OCVSPacketScanHeader(uint32_t length, uint32_t chunk_count)
+OCVSPacketScanHeader::OCVSPacketScanHeader(uint32_t length, uint8_t chunk_count)
 	: result(RESULT_SUCCESS)
 	, length(length)
 	, chunk_count(chunk_count)
@@ -52,7 +52,8 @@ OCVSPacketScanHeader::OCVSPacketScanHeader(const std::vector<char> &packet)
 		length = length << 8;
 		length = length | packet.at(i);
 	}
-	const int start = sizeof(uint32_t) + sizeof(uint32_t);
+	// Next byte is the number of chunks
+	const int start = sizeof(uint32_t) + sizeof(uint8_t);
 	chunk_count = 0;
 	for (i = start; i > sizeof(uint32_t); i--) {
 		chunk_count = chunk_count << 8;
@@ -94,8 +95,8 @@ void OCVSPacketScanHeader::Pack(std::vector<char> &buff) const
 
 size_t OCVSPacketScanHeader::GetPackedSize() const
 {
-	// Fixed length of one 8 bit field and two 32 bit fields
-	return 9;
+	// Fixed length of two 8 bit fields and one 32 bit fields
+	return 6;
 }
 
 

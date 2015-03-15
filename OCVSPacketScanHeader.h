@@ -13,7 +13,7 @@ class OCVSPacketScanHeader :
 public:
 	OCVSPacketScanHeader(uint8_t result);
 
-	OCVSPacketScanHeader(uint32_t length, uint32_t chunk_count);
+	OCVSPacketScanHeader(uint32_t length, uint8_t chunk_count);
 
 	OCVSPacketScanHeader(const std::vector<OCVSPacket *> &scanChunks);
 
@@ -34,6 +34,6 @@ public:
 private:
 	uint8_t result;
 	uint32_t length;
-	uint32_t chunk_count;
+	uint8_t chunk_count;
 };
 
