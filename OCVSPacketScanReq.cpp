@@ -4,7 +4,14 @@
 
 #include "OCVSPacketScanReq.h"
 
-OCVSPacketScanReq::OCVSPacketScanReq()
+OCVSPacketScanReq::OCVSPacketScanReq(bool debug)
+	: content(debug ? SCAN_DEBUG : SCAN)
+{
+}
+
+// TODO: This should actually verify the packet.
+OCVSPacketScanReq::OCVSPacketScanReq(std::vector<char> &begin, int offset)
+	: content(begin.at(offset)) // Single byte indicating the command.
 {
 }
 
@@ -26,4 +33,19 @@ size_t OCVSPacketScanReq::GetPackedSize() const
 {
 	// Fixed length of a single byte
 	return 1;
+}
+
+
+bool OCVSPacketScanReq::DebugRequested() const
+{
+	switch (content)
+	{
+	case SCAN:
+		return true;
+	case SCAN_DEBUG:
+		return false;
+	default:
+		// TODO: Should throw an exception
+		return false;
+	}
 }
