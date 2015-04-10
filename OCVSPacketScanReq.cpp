@@ -41,9 +41,9 @@ bool OCVSPacketScanReq::DebugRequested() const
 	switch (content)
 	{
 	case SCAN:
-		return true;
-	case SCAN_DEBUG:
 		return false;
+	case SCAN_DEBUG:
+		return true;
 	default:
 		// TODO: Should throw an exception
 		return false;
