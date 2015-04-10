@@ -48,6 +48,9 @@ unsigned char OCVSPacketScanReq::ScanTypeToContent(OCVSPacketScanReq::ScanType s
 		return CONTENT_SCAN_DEBUG;
 	case ScanType::SCAN_INTERACTIVE:
 		return CONTENT_SCAN_INTERACTIVE;
+	default:
+		// The Unreal compiler complains without this!
+		throw std::invalid_argument("Unsupport ScanType");
 	}
 }
 
