@@ -4,8 +4,10 @@
 
 #include "OCVSPacketScanReq.h"
 
-OCVSPacketScanReq::OCVSPacketScanReq(bool debug)
-	: content(debug ? SCAN_DEBUG : SCAN)
+#include <stdexcept>
+
+OCVSPacketScanReq::OCVSPacketScanReq(ScanType mode)
+	: content(OCVSPacketScanReq::ScanTypeToContent(mode))
 {
 }
 
@@ -36,16 +38,30 @@ size_t OCVSPacketScanReq::GetPackedSize() const
 }
 
 
-bool OCVSPacketScanReq::DebugRequested() const
+unsigned char OCVSPacketScanReq::ScanTypeToContent(OCVSPacketScanReq::ScanType st)
+{
+	switch (st)
+	{
+	case ScanType::SCAN:
+		return CONTENT_SCAN;
+	case ScanType::SCAN_DEBUG:
+		return CONTENT_SCAN_DEBUG;
+	case ScanType::SCAN_INTERACTIVE:
+		return CONTENT_SCAN_INTERACTIVE;
+	}
+}
+
+OCVSPacketScanReq::ScanType OCVSPacketScanReq::GetRequestType() const
 {
 	switch (content)
 	{
-	case SCAN:
-		return false;
-	case SCAN_DEBUG:
-		return true;
+	case CONTENT_SCAN:
+		return ScanType::SCAN;
+	case CONTENT_SCAN_DEBUG:
+		return ScanType::SCAN_DEBUG;
+	case CONTENT_SCAN_INTERACTIVE:
+		return ScanType::SCAN_INTERACTIVE;
 	default:
-		// TODO: Should throw an exception
-		return false;
+		throw std::invalid_argument("Invalid Scan Request Packet");
 	}
 }
