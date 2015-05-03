@@ -55,7 +55,9 @@ bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff, unsigned
 	if (VerifyReceived(buff)) {
 		FloorScale = buff.at(1);
 		TopScale = buff.at(2);
+		return true;
 	}
-
-	return false;
+	else {
+		return false;
+	}
 }
