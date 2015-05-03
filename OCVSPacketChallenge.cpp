@@ -5,6 +5,15 @@
 #include "OCVSPacketChallenge.h"
 
 OCVSPacketChallenge::OCVSPacketChallenge()
+	: FloorScale(180),
+	TopScale(10)
+{
+}
+
+
+OCVSPacketChallenge::OCVSPacketChallenge(unsigned char FloorScale, unsigned char TopScale)
+	: FloorScale(FloorScale),
+	TopScale(TopScale)
 {
 }
 
@@ -19,6 +28,9 @@ void OCVSPacketChallenge::Pack(std::vector<char> &buff) const
 	buff.clear();
 	// Send the protcol version
 	buff.push_back(ProtocolVersion);
+	// Send scale values
+	buff.push_back(FloorScale);
+	buff.push_back(TopScale);
 }
 
 
@@ -36,4 +48,14 @@ bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff) const
 	}
 
 	return buff.at(0) == ProtocolVersion;
+}
+
+bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff, unsigned char &FloorScale, unsigned char &TopScale) const
+{
+	if (VerifyReceived(buff)) {
+		FloorScale = buff.at(1);
+		TopScale = buff.at(2);
+	}
+
+	return false;
 }

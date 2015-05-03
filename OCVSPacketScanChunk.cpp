@@ -9,13 +9,14 @@
 #endif
 
 #ifndef IN_UE4
-OCVSPacketScanChunk::OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect)
+OCVSPacketScanChunk::OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect, uint8_t scale)
 	: index(index)
 	, centre_x(rect.center.x)
 	, centre_y(rect.center.y)
 	, rotation(rect.angle)
 	, scale_x(rect.size.width)
 	, scale_y(rect.size.height)
+	, scale(scale)
 {
 }
 #endif
@@ -60,6 +61,10 @@ OCVSPacketScanChunk::OCVSPacketScanChunk(std::vector<char> &begin, int offset)
 
 	thefloat = reinterpret_cast<float *>(&(*it));
 	scale_y = *thefloat;
+
+	it += sizeof(float);
+
+	scale = *it;
 }
 
 OCVSPacketScanChunk::~OCVSPacketScanChunk()
@@ -91,12 +96,15 @@ void OCVSPacketScanChunk::Pack(std::vector<char> &buff) const
 	asBytes = reinterpret_cast<const char *>(&scale_y);
 	buff.insert(buff.end(), asBytes, asBytes + sizeof(scale_y));
 
+	// Send the height
+	buff.push_back(scale);
+
 	//assert(buff.size() == GetPackedSize());
 }
 
 
 size_t OCVSPacketScanChunk::GetPackedSize() const
 {
-	// Fixed length of one 32 bit field, 5 32 bit floats
-	return 24;
+	// Fixed length of one 32 bit field, 5 32 bit floats, one byte
+	return 25;
 }
