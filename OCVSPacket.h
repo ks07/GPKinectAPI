@@ -4,7 +4,7 @@
 #include "GPProject.h"
 #endif
 
-#define OCVS_PROTOCOL_VERSION (unsigned char)0x00;
+#define OCVS_PROTOCOL_VERSION (unsigned char)0x01;
 
 #include <vector>
 
