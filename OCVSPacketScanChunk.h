@@ -18,7 +18,7 @@ class OCVSPacketScanChunk :
 {
 public:
 #ifndef IN_UE4
-	OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect);
+	OCVSPacketScanChunk(uint32_t index, cv::RotatedRect rect, uint8_t scale);
 #endif
 
     OCVSPacketScanChunk(std::vector<char> &begin, int offset);
@@ -35,6 +35,7 @@ public:
 	float rotation;
 	float scale_x;
 	float scale_y;
+	uint8_t scale;
 
 private:
 	uint32_t index;
