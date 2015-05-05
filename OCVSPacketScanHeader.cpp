@@ -105,3 +105,10 @@ uint32_t OCVSPacketScanHeader::GetChunkCount() const
 	// TODO: Type crying!
 	return chunk_count;
 }
+
+
+uint32_t OCVSPacketScanHeader::GetLength() const
+{
+	// TODO: Type crying!
+	return length;
+}
