@@ -27,6 +27,7 @@ public:
 
 	// _t versions... polluting UE or not?
 	uint32_t GetChunkCount() const;
+	uint32_t GetLength() const;
 
 	// TODO: An enum would be nice here... but conversion to/from is annoying
 	static const uint8_t RESULT_SUCCESS = 0x00;
