@@ -20,8 +20,8 @@ public:
 
 	size_t GetPackedSize() const override;
 
-	bool VerifyReceived(const std::vector<char> &buff) const;
-	bool VerifyReceived(const std::vector<char> &buff, unsigned char &FloorScale, unsigned char &TopScale) const;
+	bool VerifyReceived(const std::vector<char> &buff, size_t len) const;
+	bool VerifyReceived(const std::vector<char> &buff, size_t len, unsigned char &FloorScale, unsigned char &TopScale) const;
 
 private:
 	static const size_t PackedSize = 3;
