@@ -47,11 +47,12 @@ OCVSPacketScanHeader::OCVSPacketScanHeader(const std::vector<char> &packet)
 	result = packet.at(i);
 	// Next 4 bytes are the length.
 	// TODO: Cheeky reinterpret maybe???
-	length = 0;
+	/*length = 0;
 	for (i = sizeof(uint32_t); i >= 1; i--) {
 		length = length << 8;
 		length = length | packet.at(i);
-	}
+	}*/
+	length = *reinterpret_cast<const uint32_t *>(&(packet[1]));
 	// Next byte is the number of chunks
 	const int start = sizeof(uint32_t) + sizeof(uint8_t);
 	chunk_count = 0;

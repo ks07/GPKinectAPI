@@ -41,18 +41,18 @@ size_t OCVSPacketChallenge::GetPackedSize() const
 }
 
 
-bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff) const
+bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff, size_t len) const
 {
-	if (buff.size() != PackedSize) {
+	if (len != PackedSize) {
 		return false;
 	}
 
 	return buff.at(0) == ProtocolVersion;
 }
 
-bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff, unsigned char &FloorScale, unsigned char &TopScale) const
+bool OCVSPacketChallenge::VerifyReceived(const std::vector<char> &buff, size_t len, unsigned char &FloorScale, unsigned char &TopScale) const
 {
-	if (VerifyReceived(buff)) {
+	if (VerifyReceived(buff, len)) {
 		FloorScale = buff.at(1);
 		TopScale = buff.at(2);
 		return true;
